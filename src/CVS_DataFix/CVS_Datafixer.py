@@ -89,13 +89,6 @@ def prepare_data(df, output_path='../data/preparedData/prepared_data.csv'):
             df[col] = np.log1p(df[col] + shift)
     print(f"📈 [STEP 7] Skewness Correction: .... COMPLETE (Log1p)")
 
-    # --- 8. Feature Scaling ---
-    exclude_scaling = ['CustomerID', 'Churn']
-    scale_cols = [c for c in df.select_dtypes(include=[np.number]).columns if c not in exclude_scaling]
-    scaler = StandardScaler()
-    df[scale_cols] = scaler.fit_transform(df[scale_cols])
-    print(f"⚖️  [STEP 8] Feature Scaling: ........ COMPLETE (StandardScaler)")
-
     # --- SAVE ---
     try:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
