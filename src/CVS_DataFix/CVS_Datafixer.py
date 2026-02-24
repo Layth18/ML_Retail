@@ -58,11 +58,18 @@ def prepare_data(df, output_path='../data/preparedData/prepared_data.csv'):
         df = df.drop(columns=['RegistrationDate'])
         print(f"📅 [STEP 3] Date Normalization: ..... COMPLETE (Y/M/D Split)")
 
-    # --- 4. Handle IP ---
+    # --- 4. Handle IP (Full Parse) ---
     if 'LastLoginIP' in df.columns:
-        df['IP_Group'] = df['LastLoginIP'].astype(str).str.split('.').str[0]
+        # Split the IP into 4 separate parts
+        ip_split = df['LastLoginIP'].astype(str).str.split('.', expand=True)
+        
+        # Rename columns and convert to numeric (filling errors with 0)
+        for i in range(4):
+            df[f'IP_Octet_{i+1}'] = pd.to_numeric(ip_split[i], errors='coerce').fillna(0).astype(int)
+        
+        # Drop the original IP column
         df = df.drop(columns=['LastLoginIP'])
-        print(f"🌐 [STEP 4] IP Normalization: ....... COMPLETE (Subnet Group)")
+        print(f"🌐 [STEP 4] IP Parsing: ............. COMPLETE (4-Octet Split)")
 
     # --- 5. Categorical Encoding (Integer Mapping) ---
     le = LabelEncoder()

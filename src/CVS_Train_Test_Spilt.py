@@ -1,35 +1,57 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler # Added for scaling
+from sklearn.preprocessing import StandardScaler
 import os
 
 # Load your prepared data
 df = pd.read_csv('data/preparedData/prepared_data.csv')
 
 def split_and_save_data(df, target_col='ChurnRiskCategory', test_size=0.2, random_state=42):
+    # --- TOP 10 FEATURES ---
+    elite_features = [
+    'Recency', 
+    'FirstPurchaseDaysAgo', 
+    'FavoriteSeason', 
+    'CustomerTenureDays', 
+    'PreferredMonth_cos', 
+    'CustomerType', 
+    'RFMSegment', 
+    'WeekendPurchaseRatio', 
+    'Region', 
+    'MonetaryTotal'
+]
+    
     # 1. Separate Features and Target
-    X = df.drop(columns=['CustomerID', target_col], errors='ignore')
+    available_features = [f for f in elite_features if f in df.columns]
+    
+    # FIX: Convert to float immediately to prevent LossySetitemError/TypeError during scaling
+    X = df[available_features].copy().astype(float)
     y = df[target_col]
+
+    print(f"🎯 Selected Top {len(available_features)} features. Converting to float for scaling...")
 
     # 2. Train-test split (with stratification)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state, stratify=y
     )
 
-    # --- STEP 8: FEATURE SCALING (X ONLY) ---
-    # We only scale numeric columns to avoid breaking categorical one-hot encodings
-    numeric_cols = X_train.select_dtypes(include=['float64', 'int64']).columns
-    
+    # --- STEP 3: FEATURE SCALING (X ONLY) ---
     scaler = StandardScaler()
     
-    # Fit ONLY on training data to prevent leakage
-    X_train[numeric_cols] = scaler.fit_transform(X_train[numeric_cols])
+    # Scaling converts the data into a NumPy array of floats, 
+    # which now fits perfectly into our float-typed DataFrames.
+    X_train = pd.DataFrame(
+        scaler.fit_transform(X_train), 
+        columns=X_train.columns, 
+        index=X_train.index
+    )
+    X_test = pd.DataFrame(
+        scaler.transform(X_test), 
+        columns=X_test.columns, 
+        index=X_test.index
+    )
     
-    # Transform test data using the training fit
-    X_test[numeric_cols] = scaler.transform(X_test[numeric_cols])
-    
-    print(f"⚖️ Feature Scaling applied to {len(numeric_cols)} numeric columns.")
-    # ----------------------------------------
+    print(f"⚖️ Feature Scaling complete (Mean ≈ 0, Std ≈ 1)")
 
     return X_train, X_test, y_train, y_test
 
@@ -38,8 +60,7 @@ X_train, X_test, y_train, y_test = split_and_save_data(df)
 
 # Define and CREATE the directory
 output_dir = "data/TestTrainData/"
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+os.makedirs(output_dir, exist_ok=True)
 
 # Save the files
 X_train.to_csv(os.path.join(output_dir, "X_Train.csv"), index=False)
@@ -47,4 +68,4 @@ X_test.to_csv(os.path.join(output_dir, "X_Test.csv"), index=False)
 y_train.to_csv(os.path.join(output_dir, "y_Train.csv"), index=False)
 y_test.to_csv(os.path.join(output_dir, "y_Test.csv"), index=False)
 
-print(f"💾 Success! Scaled X and untouched y saved to: {output_dir}")
+print(f"💾 Success! Files saved to: {output_dir}")
