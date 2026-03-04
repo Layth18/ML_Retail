@@ -1,0 +1,42 @@
+{
+    "FavoriteSeason": {
+        "0": "Automne",
+        "1": "Hiver",
+        "2": "Printemps",
+        "3": "\u00c9t\u00e9"
+    },
+    "CustomerType": {
+        "0": "Hyperactif",
+        "1": "Nouveau",
+        "2": "Occasionnel",
+        "3": "Perdu",
+        "4": "R\u00e9gulier"
+    },
+    "RFMSegment": {
+        "0": "Champions",
+        "1": "Dormants",
+        "2": "Fid\u00e8les",
+        "3": "Potentiels"
+    },
+    "Region": {
+        "0": "Afrique",
+        "1": "Am\u00e9rique du Nord",
+        "2": "Am\u00e9rique du Sud",
+        "3": "Asie",
+        "4": "Autre",
+        "5": "Europe centrale",
+        "6": "Europe continentale",
+        "7": "Europe de l'Est",
+        "8": "Europe du Nord",
+        "9": "Europe du Sud",
+        "10": "Moyen-Orient",
+        "11": "Oc\u00e9anie",
+        "12": "UK"
+    },
+    "ChurnRiskCategory": {
+        "0": "Critique",
+        "1": "Faible",
+        "2": "Moyen",
+        "3": "\u00c9lev\u00e9"
+    }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Intelligence Pro | Prediction</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      AI Diagnostics · Live
+    </div>
+    <h1>Customer Intelligence Pro</h1>
+    <p class="subtitle">Churn risk &nbsp;·&nbsp; Persona classification &nbsp;·&nbsp; XGBoost &amp; K-Means</p>
+  </header>
+
+  <nav class="page-nav">
+    <a href="index.html" class="active">⚡ Prediction</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+  </nav>
+
+  <main>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon">⚡</div>
+        <div class="card-header-text">
+          <h2>Diagnostic Input</h2>
+          <p>Enter raw customer attributes — all preprocessing handled automatically.</p>
+        </div>
+      </div>
+
+      <form id="analysis-form">
+        <div id="fields"></div>
+        <button type="submit" class="submit-btn">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.3 1.047a1 1 0 01.897.447l4.1 5.5a1 1 0 010 1.212l-4.1 5.5a1 1 0 01-1.68-1.032l3.357-4.508-3.357-4.508a1 1 0 01.283-1.613zm-6.6 0a1 1 0 01.897.447l4.1 5.5a1 1 0 010 1.212l-4.1 5.5a1 1 0 01-1.68-1.032l3.357-4.508-3.357-4.508a1 1 0 01.283-1.613z"/>
+          </svg>
+          Run AI Diagnostics
+        </button>
+      </form>
+
+      <section id="results-area" class="hidden">
+        <div class="results-label">Prediction Results</div>
+
+        <div id="combo-banner">
+          <div class="combo-icon" id="combo-icon">💡</div>
+          <div class="combo-text">
+            <div class="combo-title" id="combo-title">Strategy</div>
+            <div class="combo-strategy" id="combo-strategy-text">--</div>
+          </div>
+          <div class="combo-badge" id="combo-badge-el">--</div>
+        </div>
+
+        <div class="results-grid">
+          <div class="result-card" id="churn-card">
+            <div class="result-tag">Churn Risk</div>
+            <div id="churn-badge">--</div>
+            <div id="churn-val">--</div>
+          </div>
+
+          <div class="result-card" id="persona-card">
+            <div class="result-tag">Persona</div>
+            <div id="persona-val">--</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-tag">Best Season · Est. Gain</div>
+            <div id="strategy-val" style="font-size:12px;font-weight:700;color:var(--text);">--</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>Customer Intelligence Pro &nbsp;·&nbsp; Powered by XGBoost &amp; K-Means</footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

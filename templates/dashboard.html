@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Intelligence Pro | Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      AI Diagnostics · Live
+    </div>
+    <h1>Customer Intelligence Pro</h1>
+    <p class="subtitle">Churn risk &nbsp;·&nbsp; Persona classification &nbsp;·&nbsp; XGBoost &amp; K-Means</p>
+  </header>
+
+  <nav class="page-nav">
+    <a href="index.html">⚡ Prediction</a>
+    <a href="dashboard.html" class="active">📊 Dashboard</a>
+  </nav>
+
+  <main>
+    <div class="dash-block">
+      <div class="dash-topbar">
+        <div class="dash-topbar-left">
+          <span class="dash-icon">📊</span>
+          <div>
+            <div class="dash-title">Marketing Intelligence Dashboard</div>
+            <div class="dash-sub">Model-predicted revenue gain across all seasons &amp; regions</div>
+          </div>
+        </div>
+        <button class="dash-refresh-btn" onclick="loadDashboard()">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+          </svg>
+          Refresh
+        </button>
+      </div>
+
+      <div class="dash-tabs">
+        <button class="dash-tab active" onclick="switchTab('seasons', this)">🌿 By Season</button>
+        <button class="dash-tab" onclick="switchTab('regions', this)">🌍 By Region</button>
+      </div>
+
+      <div id="dash-loading" class="dash-loading">
+        <div class="dash-spinner"></div>
+        <span>Loading dashboard data…</span>
+      </div>
+
+      <!-- SEASONS TAB -->
+      <div id="dash-seasons" class="dash-panel hidden">
+        <div class="dash-seasons-grid" id="seasons-grid"></div>
+        <div id="annual-stat"></div>
+      </div>
+
+      <!-- REGIONS TAB -->
+      <div id="dash-regions" class="dash-panel hidden">
+        <div id="regions-list"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>Customer Intelligence Pro &nbsp;·&nbsp; Powered by XGBoost &amp; K-Means</footer>
+
+  <script src="dashboard.js" defer></script>
+</body>
+</html>

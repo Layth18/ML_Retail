@@ -1,0 +1,941 @@
+:root {
+      --bg: #f4f5f7;
+      --surface: #ffffff;
+      --surface2: #f9fafb;
+      --border: #e5e7eb;
+      --border-focus: #9ca3af;
+      --text: #111827;
+      --muted: #6b7280;
+      --muted2: #9ca3af;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-size: 14px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      opacity: 0.45;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative; z-index: 10;
+      padding: 48px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px;
+    }
+
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: blink 2.4s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PAGE NAV ── */
+    .page-nav {
+      position: relative; z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 14px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .page-nav a:hover {
+      color: var(--text);
+      background: var(--bg);
+      border-color: var(--border);
+    }
+
+    .page-nav a.active {
+      color: var(--text);
+      background: var(--bg);
+      border-color: var(--border);
+      font-weight: 600;
+    }
+
+    /* ── MAIN ── */
+    main {
+      position: relative; z-index: 10;
+      max-width: 860px;
+      margin: 36px auto;
+      padding: 0 20px 48px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 6px 24px rgba(0,0,0,0.04);
+    }
+
+    .card-header {
+      padding: 24px 32px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .card-header-icon {
+      width: 36px; height: 36px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+
+    .card-header-text h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .card-header-text p {
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    /* ── FORM ── */
+    form { padding: 28px 32px 32px; }
+
+    #fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 580px) {
+      #fields { grid-template-columns: 1fr; }
+      form, .card-header, #results-area { padding: 18px; }
+    }
+
+    .field-wrap label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .field-wrap input,
+    .field-wrap select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 11px;
+      font-family: var(--font);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .field-wrap select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 11px center;
+      padding-right: 30px;
+      cursor: pointer;
+    }
+
+    .field-wrap input:focus,
+    .field-wrap select:focus {
+      border-color: #9ca3af;
+      box-shadow: 0 0 0 3px rgba(107,114,128,0.09);
+      background: #fff;
+    }
+
+    .field-wrap input:hover,
+    .field-wrap select:hover { border-color: #c4c9d4; }
+
+    .field-wrap input[type=number]::-webkit-inner-spin-button,
+    .field-wrap input[type=number]::-webkit-outer-spin-button { opacity: 0.35; }
+
+    /* ── BUTTON ── */
+    .submit-btn {
+      width: 100%;
+      background: #111827;
+      color: #fff;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      padding: 13px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: transform 0.14s, box-shadow 0.14s, opacity 0.14s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 16px rgba(0,0,0,0.2);
+    }
+
+    .submit-btn:active:not(:disabled) { transform: translateY(0); }
+    .submit-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-icon { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* ── RESULTS ── */
+    #results-area {
+      border-top: 1px solid var(--border);
+      padding: 28px 32px 32px;
+      background: var(--surface2);
+      transition: background 0.4s;
+    }
+
+    #results-area.hidden { display: none; }
+
+    .results-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .results-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ── COMBO BANNER ── */
+    #combo-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin-bottom: 16px;
+      transition: background 0.4s, border-color 0.4s;
+    }
+
+    #combo-banner.visible { display: flex; animation: fadeUp 0.35s ease both; }
+
+    .combo-icon { font-size: 22px; flex-shrink: 0; }
+
+    .combo-text { flex: 1; }
+    .combo-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .combo-strategy {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .combo-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── RESULT CARDS GRID ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 580px) { .results-grid { grid-template-columns: 1fr; } }
+
+    .result-card {
+      border-radius: 12px;
+      padding: 20px 16px;
+      border: 1.5px solid var(--border);
+      text-align: center;
+      background: var(--surface);
+      animation: fadeUp 0.4s ease both;
+      transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
+    }
+
+    .result-card:nth-child(2) { animation-delay: 0.06s; }
+    .result-card:nth-child(3) { animation-delay: 0.12s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      margin-bottom: 10px;
+    }
+
+    #churn-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: #f3f4f6;
+      color: var(--muted);
+      transition: background 0.4s, color 0.4s;
+      margin-bottom: 6px;
+    }
+
+    #churn-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      transition: color 0.4s;
+    }
+
+    #persona-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    /* Persona card — tinted per persona */
+    #persona-card { transition: background 0.4s, border-color 0.4s; }
+
+    /* Persona 0: Loyal High-Spender — blue/indigo */
+    .persona-0 #persona-card { background: #eff6ff; border-color: #93c5fd; }
+    .persona-0 #persona-val  { color: #1d4ed8; }
+
+    /* Persona 1: Recent Explorer — violet */
+    .persona-1 #persona-card { background: #f5f3ff; border-color: #c4b5fd; }
+    .persona-1 #persona-val  { color: #6d28d9; }
+
+    /* Persona 2: At-Risk / Hibernating — slate */
+    .persona-2 #persona-card { background: #f8fafc; border-color: #94a3b8; }
+    .persona-2 #persona-val  { color: #475569; }
+
+    /* ── 12-COMBO THEMES ──────────────────────────────────────────────────────
+       Persona 0 = Loyal High-Spender  →  churn 0–3: red / lime / teal / orange
+       Persona 1 = Recent Explorer     →  churn 0–3: rose / sky / violet / amber
+       Persona 2 = At-Risk/Hibernating →  churn 0–3: crimson / green / slate / yellow
+    ── */
+
+    /* 0,0  Loyal + Critical  — deep red */
+    #results-area.combo-0-0 { background:#fff1f2; }
+    #results-area.combo-0-0 .result-card, #results-area.combo-0-0 #combo-banner { background:#fff1f2; border-color:#fca5a5; }
+    #results-area.combo-0-0 #churn-val, #results-area.combo-0-0 #persona-val, #results-area.combo-0-0 .combo-title { color:#b91c1c; }
+    #results-area.combo-0-0 #churn-badge, #results-area.combo-0-0 .combo-badge { background:#fee2e2; color:#b91c1c; }
+
+    /* 0,1  Loyal + Low       — emerald */
+    #results-area.combo-0-1 { background:#f0fdf4; }
+    #results-area.combo-0-1 .result-card, #results-area.combo-0-1 #combo-banner { background:#f0fdf4; border-color:#86efac; }
+    #results-area.combo-0-1 #churn-val, #results-area.combo-0-1 #persona-val, #results-area.combo-0-1 .combo-title { color:#15803d; }
+    #results-area.combo-0-1 #churn-badge, #results-area.combo-0-1 .combo-badge { background:#dcfce7; color:#15803d; }
+
+    /* 0,2  Loyal + Medium    — teal */
+    #results-area.combo-0-2 { background:#f0fdfa; }
+    #results-area.combo-0-2 .result-card, #results-area.combo-0-2 #combo-banner { background:#f0fdfa; border-color:#5eead4; }
+    #results-area.combo-0-2 #churn-val, #results-area.combo-0-2 #persona-val, #results-area.combo-0-2 .combo-title { color:#0f766e; }
+    #results-area.combo-0-2 #churn-badge, #results-area.combo-0-2 .combo-badge { background:#ccfbf1; color:#0f766e; }
+
+    /* 0,3  Loyal + High      — orange */
+    #results-area.combo-0-3 { background:#fff7ed; }
+    #results-area.combo-0-3 .result-card, #results-area.combo-0-3 #combo-banner { background:#fff7ed; border-color:#fb923c; }
+    #results-area.combo-0-3 #churn-val, #results-area.combo-0-3 #persona-val, #results-area.combo-0-3 .combo-title { color:#c2410c; }
+    #results-area.combo-0-3 #churn-badge, #results-area.combo-0-3 .combo-badge { background:#ffedd5; color:#c2410c; }
+
+    /* 1,0  Explorer + Critical — rose/pink */
+    #results-area.combo-1-0 { background:#fff1f6; }
+    #results-area.combo-1-0 .result-card, #results-area.combo-1-0 #combo-banner { background:#fff1f6; border-color:#f9a8d4; }
+    #results-area.combo-1-0 #churn-val, #results-area.combo-1-0 #persona-val, #results-area.combo-1-0 .combo-title { color:#9d174d; }
+    #results-area.combo-1-0 #churn-badge, #results-area.combo-1-0 .combo-badge { background:#fce7f3; color:#9d174d; }
+
+    /* 1,1  Explorer + Low    — sky blue */
+    #results-area.combo-1-1 { background:#f0f9ff; }
+    #results-area.combo-1-1 .result-card, #results-area.combo-1-1 #combo-banner { background:#f0f9ff; border-color:#7dd3fc; }
+    #results-area.combo-1-1 #churn-val, #results-area.combo-1-1 #persona-val, #results-area.combo-1-1 .combo-title { color:#0369a1; }
+    #results-area.combo-1-1 #churn-badge, #results-area.combo-1-1 .combo-badge { background:#e0f2fe; color:#0369a1; }
+
+    /* 1,2  Explorer + Medium — violet */
+    #results-area.combo-1-2 { background:#f5f3ff; }
+    #results-area.combo-1-2 .result-card, #results-area.combo-1-2 #combo-banner { background:#f5f3ff; border-color:#c4b5fd; }
+    #results-area.combo-1-2 #churn-val, #results-area.combo-1-2 #persona-val, #results-area.combo-1-2 .combo-title { color:#5b21b6; }
+    #results-area.combo-1-2 #churn-badge, #results-area.combo-1-2 .combo-badge { background:#ede9fe; color:#5b21b6; }
+
+    /* 1,3  Explorer + High   — amber */
+    #results-area.combo-1-3 { background:#fffbeb; }
+    #results-area.combo-1-3 .result-card, #results-area.combo-1-3 #combo-banner { background:#fffbeb; border-color:#fcd34d; }
+    #results-area.combo-1-3 #churn-val, #results-area.combo-1-3 #persona-val, #results-area.combo-1-3 .combo-title { color:#b45309; }
+    #results-area.combo-1-3 #churn-badge, #results-area.combo-1-3 .combo-badge { background:#fef3c7; color:#b45309; }
+
+    /* 2,0  Hibernating + Critical — crimson/dark red */
+    #results-area.combo-2-0 { background:#fff0f0; }
+    #results-area.combo-2-0 .result-card, #results-area.combo-2-0 #combo-banner { background:#fff0f0; border-color:#ef4444; }
+    #results-area.combo-2-0 #churn-val, #results-area.combo-2-0 #persona-val, #results-area.combo-2-0 .combo-title { color:#7f1d1d; }
+    #results-area.combo-2-0 #churn-badge, #results-area.combo-2-0 .combo-badge { background:#fee2e2; color:#7f1d1d; }
+
+    /* 2,1  Hibernating + Low  — lime green */
+    #results-area.combo-2-1 { background:#f7fee7; }
+    #results-area.combo-2-1 .result-card, #results-area.combo-2-1 #combo-banner { background:#f7fee7; border-color:#a3e635; }
+    #results-area.combo-2-1 #churn-val, #results-area.combo-2-1 #persona-val, #results-area.combo-2-1 .combo-title { color:#3f6212; }
+    #results-area.combo-2-1 #churn-badge, #results-area.combo-2-1 .combo-badge { background:#ecfccb; color:#3f6212; }
+
+    /* 2,2  Hibernating + Medium — slate blue */
+    #results-area.combo-2-2 { background:#f1f5f9; }
+    #results-area.combo-2-2 .result-card, #results-area.combo-2-2 #combo-banner { background:#f1f5f9; border-color:#94a3b8; }
+    #results-area.combo-2-2 #churn-val, #results-area.combo-2-2 #persona-val, #results-area.combo-2-2 .combo-title { color:#334155; }
+    #results-area.combo-2-2 #churn-badge, #results-area.combo-2-2 .combo-badge { background:#e2e8f0; color:#334155; }
+
+    /* 2,3  Hibernating + High  — yellow */
+    #results-area.combo-2-3 { background:#fefce8; }
+    #results-area.combo-2-3 .result-card, #results-area.combo-2-3 #combo-banner { background:#fefce8; border-color:#facc15; }
+    #results-area.combo-2-3 #churn-val, #results-area.combo-2-3 #persona-val, #results-area.combo-2-3 .combo-title { color:#854d0e; }
+    #results-area.combo-2-3 #churn-badge, #results-area.combo-2-3 .combo-badge { background:#fef9c3; color:#854d0e; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 10;
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: var(--muted2);
+      letter-spacing: 0.05em;
+    }
+    /* ══════════════════════════════════════════════
+       MARKETING INTELLIGENCE DASHBOARD
+    ══════════════════════════════════════════════ */
+
+    .dash-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 6px 24px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+    }
+
+    .dash-topbar {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dash-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dash-icon { font-size: 22px; }
+
+    .dash-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .dash-sub {
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    .dash-refresh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+      flex-shrink: 0;
+    }
+
+    .dash-refresh-btn:hover {
+      color: var(--text);
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(107,114,128,0.07);
+    }
+
+    /* ── TABS ── */
+    .dash-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      background: var(--surface2);
+    }
+
+    .dash-tab {
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      margin-bottom: -1px;
+    }
+
+    .dash-tab.active {
+      color: var(--text);
+      border-bottom-color: #111827;
+      font-weight: 600;
+    }
+
+    .dash-tab:hover:not(.active) { color: var(--text); }
+
+    /* ── LOADING ── */
+    .dash-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 40px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .dash-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: #6b7280;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── PANELS ── */
+    .dash-panel { padding: 24px 28px; }
+    .dash-panel.hidden { display: none; }
+
+    /* ── SEASONS GRID ── */
+    .dash-seasons-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .dash-seasons-grid { grid-template-columns: 1fr; }
+      .dash-topbar { padding: 16px 18px; }
+      .dash-panel { padding: 16px 18px; }
+    }
+
+    .season-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    .season-card:nth-child(2) { animation-delay: 0.06s; }
+    .season-card:nth-child(3) { animation-delay: 0.12s; }
+    .season-card:nth-child(4) { animation-delay: 0.18s; }
+
+    .season-card-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .season-name {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .season-totals {
+      text-align: right;
+    }
+
+    .season-total-label {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .season-total-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .season-annual {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .season-regions {
+      padding: 8px 0;
+    }
+
+    .season-region-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      gap: 10px;
+      transition: background 0.12s;
+    }
+
+    .season-region-row:hover { background: var(--surface2); }
+
+    .region-rank {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted2);
+      width: 16px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .region-rank.gold   { color: #d97706; }
+    .region-rank.silver { color: #6b7280; }
+    .region-rank.bronze { color: #92400e; }
+
+    .region-name-dash {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .region-bar-wrap {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .region-bar {
+      height: 100%;
+      border-radius: 2px;
+      background: #111827;
+      transition: width 0.5s ease;
+    }
+
+    .region-gain {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      min-width: 52px;
+      text-align: right;
+    }
+
+    /* Season color accents */
+    .season-autumn .season-card-header { background: #fff7ed; }
+    .season-autumn .season-name        { color: #c2410c; }
+    .season-autumn .region-bar         { background: #f97316; }
+
+    .season-winter .season-card-header { background: #eff6ff; }
+    .season-winter .season-name        { color: #1d4ed8; }
+    .season-winter .region-bar         { background: #3b82f6; }
+
+    .season-spring .season-card-header { background: #f0fdf4; }
+    .season-spring .season-name        { color: #15803d; }
+    .season-spring .region-bar         { background: #22c55e; }
+
+    .season-summer .season-card-header { background: #fefce8; }
+    .season-summer .season-name        { color: #b45309; }
+    .season-summer .region-bar         { background: #eab308; }
+
+    /* ── REGIONS CARDS ── */
+    .region-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      animation: fadeUp 0.35s ease both;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .region-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* Stagger animation for grid children */
+    .regions-grid .region-card:nth-child(2)  { animation-delay: 0.04s; }
+    .regions-grid .region-card:nth-child(3)  { animation-delay: 0.08s; }
+    .regions-grid .region-card:nth-child(4)  { animation-delay: 0.12s; }
+    .regions-grid .region-card:nth-child(5)  { animation-delay: 0.16s; }
+    .regions-grid .region-card:nth-child(6)  { animation-delay: 0.20s; }
+    .regions-grid .region-card:nth-child(7)  { animation-delay: 0.24s; }
+    .regions-grid .region-card:nth-child(8)  { animation-delay: 0.28s; }
+    .regions-grid .region-card:nth-child(9)  { animation-delay: 0.32s; }
+    .regions-grid .region-card:nth-child(10) { animation-delay: 0.36s; }
+    .regions-grid .region-card:nth-child(11) { animation-delay: 0.40s; }
+    .regions-grid .region-card:nth-child(12) { animation-delay: 0.44s; }
+    .regions-grid .region-card:nth-child(13) { animation-delay: 0.48s; }
+
+    .region-card-header {
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .region-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .region-rank-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: #111827;
+      color: #fff;
+      border-radius: 4px;
+      padding: 2px 7px;
+      flex-shrink: 0;
+    }
+
+    .region-card-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .region-total-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .region-total-gain {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .region-total-label {
+      font-size: 10px;
+      color: var(--muted2);
+    }
+
+    /* Season pills inside region cards */
+    .region-seasons {
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .region-season-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface2);
+      border-radius: 7px;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+    }
+
+    .season-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-spring { background: #22c55e; }
+    .dot-summer { background: #eab308; }
+    .dot-autumn { background: #f97316; }
+    .dot-winter { background: #3b82f6; }
+
+    .season-pill-name {
+      font-size: 11px;
+      color: var(--muted);
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .season-pill-gain {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .season-pill-rank {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 100px;
+      flex-shrink: 0;
+    }
+
+    .rank-1 { background: #fef3c7; color: #b45309; }
+    .rank-2 { background: #f3f4f6; color: #6b7280; }
+    .rank-3 { background: #fff7ed; color: #92400e; }
+    .rank-4 { background: #f9fafb; color: #9ca3af; }
+    /* ── ANNUAL STAT BANNER ── */
+    .annual-stat-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: #111827;
+      border-radius: 12px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .annual-stat-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .annual-stat-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .annual-stat-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #f9fafb;
+      margin-bottom: 2px;
+    }
+
+    .annual-stat-sub {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .annual-stat-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      .annual-stat-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .annual-stat-value  { font-size: 20px; }
+    }
+
+    /* ── REGIONS GRID (4-per-row card layout) ── */
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 860px) { .regions-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .regions-grid { grid-template-columns: 1fr; } }
+
+    /* Region cards fill their grid cell naturally */
+    .regions-grid .region-card { margin-bottom: 0; }
