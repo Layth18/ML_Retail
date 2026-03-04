@@ -8,7 +8,7 @@ import numpy as np
 # ─────────────────────────────────────────────
 # 1. Setup paths
 # ─────────────────────────────────────────────
-raw_base_path = 'data/preparedData/X_unscaled.csv'
+raw_base_path = 'data/preparedData/prepared_data.csv'
 output_dir = 'data/MarketingTimelineData/'
 os.makedirs(output_dir, exist_ok=True)
 
@@ -20,17 +20,18 @@ persona_model = joblib.load('models/persona_classifier.pkl')
 main_scaler = joblib.load('models/main_scaler.pkl')
 
 # ─────────────────────────────────────────────
-# 3. Generate Persona labels
+# 3. Generate Persona labels using only numeric features
 # ─────────────────────────────────────────────
+persona_features = ['Recency', 'Frequency', 'CustomerTenureDays']
 X_scaled_temp = pd.DataFrame(
-    main_scaler.transform(df_unscaled),
-    columns=df_unscaled.columns
+    main_scaler.transform(df_unscaled[persona_features]),
+    columns=persona_features
 )
 
 df_unscaled['Persona'] = persona_model.predict(X_scaled_temp)
 
 # ─────────────────────────────────────────────
-# 4. FIX REGION IMBALANCE (NEW STEP)
+# 4. Fix Region imbalance (group small regions)
 # ─────────────────────────────────────────────
 min_customers = 50
 region_counts = df_unscaled['Region'].value_counts()
@@ -45,9 +46,9 @@ print(df_unscaled['RegionGrouped'].value_counts())
 # ─────────────────────────────────────────────
 # 5. Feature Engineering
 # ─────────────────────────────────────────────
+# Target Spending proxy
 df_unscaled['TargetSpendingPerSeason'] = (
-    (df_unscaled['MonetaryTotal'] / df_unscaled['Frequency'].replace(0, np.nan))
-    * (df_unscaled['CustomerTenureDays'] / 365)
+    df_unscaled['Frequency'] * (df_unscaled['CustomerTenureDays'] / 365)
 )
 
 df_unscaled['TargetSpendingPerSeason'] = (
@@ -56,27 +57,29 @@ df_unscaled['TargetSpendingPerSeason'] = (
     .fillna(0)
 )
 
+# Features to keep
 features_to_keep = [
     'Recency',
     'Frequency',
     'CustomerTenureDays',
     'WeekendPurchaseRatio',
     'FavoriteSeason',
-    'RegionGrouped',   # ← use grouped version
+    'RegionGrouped',
     'Persona'
 ]
 
 marketing_df = df_unscaled[features_to_keep + ['TargetSpendingPerSeason']].copy()
 
 # ─────────────────────────────────────────────
-# 6. One-hot encode categorical columns (KEEP ALL CATEGORIES)
+# 6. One-hot encode categorical columns
 # ─────────────────────────────────────────────
 marketing_df = pd.get_dummies(
     marketing_df,
     columns=['FavoriteSeason', 'RegionGrouped', 'Persona'],
     prefix=['Season', 'Reg', 'Pers'],
-    drop_first=False   # KEEP all categories so Season_0, Persona_0 exist
+    drop_first=False
 )
+
 # ─────────────────────────────────────────────
 # 7. Split into train/test
 # ─────────────────────────────────────────────
@@ -90,25 +93,14 @@ X_train_m, X_test_m, y_train_m, y_test_m = train_test_split(
 # ─────────────────────────────────────────────
 # 8. Scale numeric features only
 # ─────────────────────────────────────────────
-numeric_cols = [
-    'Recency',
-    'Frequency',
-    'CustomerTenureDays',
-    'WeekendPurchaseRatio'
-]
-
+numeric_cols = ['Recency', 'Frequency', 'CustomerTenureDays', 'WeekendPurchaseRatio']
 marketing_scaler = StandardScaler()
 
 X_train_m_scaled = X_train_m.copy()
 X_test_m_scaled = X_test_m.copy()
 
-X_train_m_scaled[numeric_cols] = marketing_scaler.fit_transform(
-    X_train_m[numeric_cols]
-)
-
-X_test_m_scaled[numeric_cols] = marketing_scaler.transform(
-    X_test_m[numeric_cols]
-)
+X_train_m_scaled[numeric_cols] = marketing_scaler.fit_transform(X_train_m[numeric_cols])
+X_test_m_scaled[numeric_cols] = marketing_scaler.transform(X_test_m[numeric_cols])
 
 # ─────────────────────────────────────────────
 # 9. Save datasets
@@ -118,13 +110,13 @@ X_test_m_scaled.to_csv(os.path.join(output_dir, "X_Test_Marketing.csv"), index=F
 y_train_m.to_csv(os.path.join(output_dir, "y_Train_Marketing.csv"), index=False)
 y_test_m.to_csv(os.path.join(output_dir, "y_Test_Marketing.csv"), index=False)
 
-# Save full dataset properly ordered
+# Save full dataset
 full_scaled_df = pd.concat([X_train_m_scaled, X_test_m_scaled], axis=0)
 full_y = pd.concat([y_train_m, y_test_m], axis=0)
-
 full_scaled_df['TargetSpendingPerSeason'] = full_y.values
 full_scaled_df.to_csv(os.path.join(output_dir, "XY_Full_Marketing.csv"), index=False)
 
+# Save scaler
 joblib.dump(marketing_scaler, 'models/marketing_timeline_scaler.pkl')
 
 print("✅ Marketing Timeline datasets created (split & full)")

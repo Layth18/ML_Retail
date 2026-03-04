@@ -19,8 +19,9 @@ DATA_PATH = os.path.join(PROJECT_ROOT, "data", "TestTrainData", "X_Train.csv")
 # ==========================================
 persona_map = {
     0: {"name": "Loyal High-Spender"},
-    1: {"name": "Recent Explorer"},
+    1: {"name": "Recent Explorer / Newbie"},
     2: {"name": "At-Risk / Hibernating"},
+    3: {"name": "Loyal Active"},
 }
 
 def run_analysis():

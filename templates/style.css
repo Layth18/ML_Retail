@@ -383,95 +383,124 @@
     /* Persona card — tinted per persona */
     #persona-card { transition: background 0.4s, border-color 0.4s; }
 
-    /* Persona 0: Loyal High-Spender — blue/indigo */
+    /* Persona 0: Active Loyal — blue */
     .persona-0 #persona-card { background: #eff6ff; border-color: #93c5fd; }
     .persona-0 #persona-val  { color: #1d4ed8; }
 
-    /* Persona 1: Recent Explorer — violet */
-    .persona-1 #persona-card { background: #f5f3ff; border-color: #c4b5fd; }
-    .persona-1 #persona-val  { color: #6d28d9; }
+    /* Persona 1: At-Risk / Hibernating — slate */
+    .persona-1 #persona-card { background: #f8fafc; border-color: #94a3b8; }
+    .persona-1 #persona-val  { color: #475569; }
 
-    /* Persona 2: At-Risk / Hibernating — slate */
-    .persona-2 #persona-card { background: #f8fafc; border-color: #94a3b8; }
-    .persona-2 #persona-val  { color: #475569; }
+    /* Persona 2: Recent Explorer / Newbie — violet */
+    .persona-2 #persona-card { background: #f5f3ff; border-color: #c4b5fd; }
+    .persona-2 #persona-val  { color: #6d28d9; }
 
-    /* ── 12-COMBO THEMES ──────────────────────────────────────────────────────
-       Persona 0 = Loyal High-Spender  →  churn 0–3: red / lime / teal / orange
-       Persona 1 = Recent Explorer     →  churn 0–3: rose / sky / violet / amber
-       Persona 2 = At-Risk/Hibernating →  churn 0–3: crimson / green / slate / yellow
+    /* Persona 3: Loyal High-Spender — amber/gold */
+    .persona-3 #persona-card { background: #fffbeb; border-color: #fcd34d; }
+    .persona-3 #persona-val  { color: #b45309; }
+
+    /* ── 16-COMBO THEMES ─────────────────────────────────────────────────────
+       Persona 0 = Active Loyal        →  churn 0–3: red / indigo / cyan / orange
+       Persona 1 = At-Risk/Hibernating →  churn 0–3: crimson / lime / slate / yellow
+       Persona 2 = Recent Explorer     →  churn 0–3: rose / sky / violet / amber
+       Persona 3 = Loyal High-Spender  →  churn 0–3: deep red / emerald / teal / gold
     ── */
 
-    /* 0,0  Loyal + Critical  — deep red */
+    /* 0,0  Active Loyal + Critical  — red */
     #results-area.combo-0-0 { background:#fff1f2; }
     #results-area.combo-0-0 .result-card, #results-area.combo-0-0 #combo-banner { background:#fff1f2; border-color:#fca5a5; }
     #results-area.combo-0-0 #churn-val, #results-area.combo-0-0 #persona-val, #results-area.combo-0-0 .combo-title { color:#b91c1c; }
     #results-area.combo-0-0 #churn-badge, #results-area.combo-0-0 .combo-badge { background:#fee2e2; color:#b91c1c; }
 
-    /* 0,1  Loyal + Low       — emerald */
-    #results-area.combo-0-1 { background:#f0fdf4; }
-    #results-area.combo-0-1 .result-card, #results-area.combo-0-1 #combo-banner { background:#f0fdf4; border-color:#86efac; }
-    #results-area.combo-0-1 #churn-val, #results-area.combo-0-1 #persona-val, #results-area.combo-0-1 .combo-title { color:#15803d; }
-    #results-area.combo-0-1 #churn-badge, #results-area.combo-0-1 .combo-badge { background:#dcfce7; color:#15803d; }
+    /* 0,1  Active Loyal + Low       — indigo */
+    #results-area.combo-0-1 { background:#eef2ff; }
+    #results-area.combo-0-1 .result-card, #results-area.combo-0-1 #combo-banner { background:#eef2ff; border-color:#a5b4fc; }
+    #results-area.combo-0-1 #churn-val, #results-area.combo-0-1 #persona-val, #results-area.combo-0-1 .combo-title { color:#3730a3; }
+    #results-area.combo-0-1 #churn-badge, #results-area.combo-0-1 .combo-badge { background:#e0e7ff; color:#3730a3; }
 
-    /* 0,2  Loyal + Medium    — teal */
-    #results-area.combo-0-2 { background:#f0fdfa; }
-    #results-area.combo-0-2 .result-card, #results-area.combo-0-2 #combo-banner { background:#f0fdfa; border-color:#5eead4; }
-    #results-area.combo-0-2 #churn-val, #results-area.combo-0-2 #persona-val, #results-area.combo-0-2 .combo-title { color:#0f766e; }
-    #results-area.combo-0-2 #churn-badge, #results-area.combo-0-2 .combo-badge { background:#ccfbf1; color:#0f766e; }
+    /* 0,2  Active Loyal + Medium    — cyan */
+    #results-area.combo-0-2 { background:#ecfeff; }
+    #results-area.combo-0-2 .result-card, #results-area.combo-0-2 #combo-banner { background:#ecfeff; border-color:#67e8f9; }
+    #results-area.combo-0-2 #churn-val, #results-area.combo-0-2 #persona-val, #results-area.combo-0-2 .combo-title { color:#0e7490; }
+    #results-area.combo-0-2 #churn-badge, #results-area.combo-0-2 .combo-badge { background:#cffafe; color:#0e7490; }
 
-    /* 0,3  Loyal + High      — orange */
+    /* 0,3  Active Loyal + High      — orange */
     #results-area.combo-0-3 { background:#fff7ed; }
     #results-area.combo-0-3 .result-card, #results-area.combo-0-3 #combo-banner { background:#fff7ed; border-color:#fb923c; }
     #results-area.combo-0-3 #churn-val, #results-area.combo-0-3 #persona-val, #results-area.combo-0-3 .combo-title { color:#c2410c; }
     #results-area.combo-0-3 #churn-badge, #results-area.combo-0-3 .combo-badge { background:#ffedd5; color:#c2410c; }
 
-    /* 1,0  Explorer + Critical — rose/pink */
-    #results-area.combo-1-0 { background:#fff1f6; }
-    #results-area.combo-1-0 .result-card, #results-area.combo-1-0 #combo-banner { background:#fff1f6; border-color:#f9a8d4; }
-    #results-area.combo-1-0 #churn-val, #results-area.combo-1-0 #persona-val, #results-area.combo-1-0 .combo-title { color:#9d174d; }
-    #results-area.combo-1-0 #churn-badge, #results-area.combo-1-0 .combo-badge { background:#fce7f3; color:#9d174d; }
+    /* 1,0  At-Risk + Critical — crimson */
+    #results-area.combo-1-0 { background:#fff0f0; }
+    #results-area.combo-1-0 .result-card, #results-area.combo-1-0 #combo-banner { background:#fff0f0; border-color:#ef4444; }
+    #results-area.combo-1-0 #churn-val, #results-area.combo-1-0 #persona-val, #results-area.combo-1-0 .combo-title { color:#7f1d1d; }
+    #results-area.combo-1-0 #churn-badge, #results-area.combo-1-0 .combo-badge { background:#fee2e2; color:#7f1d1d; }
 
-    /* 1,1  Explorer + Low    — sky blue */
-    #results-area.combo-1-1 { background:#f0f9ff; }
-    #results-area.combo-1-1 .result-card, #results-area.combo-1-1 #combo-banner { background:#f0f9ff; border-color:#7dd3fc; }
-    #results-area.combo-1-1 #churn-val, #results-area.combo-1-1 #persona-val, #results-area.combo-1-1 .combo-title { color:#0369a1; }
-    #results-area.combo-1-1 #churn-badge, #results-area.combo-1-1 .combo-badge { background:#e0f2fe; color:#0369a1; }
+    /* 1,1  At-Risk + Low     — lime */
+    #results-area.combo-1-1 { background:#f7fee7; }
+    #results-area.combo-1-1 .result-card, #results-area.combo-1-1 #combo-banner { background:#f7fee7; border-color:#a3e635; }
+    #results-area.combo-1-1 #churn-val, #results-area.combo-1-1 #persona-val, #results-area.combo-1-1 .combo-title { color:#3f6212; }
+    #results-area.combo-1-1 #churn-badge, #results-area.combo-1-1 .combo-badge { background:#ecfccb; color:#3f6212; }
 
-    /* 1,2  Explorer + Medium — violet */
-    #results-area.combo-1-2 { background:#f5f3ff; }
-    #results-area.combo-1-2 .result-card, #results-area.combo-1-2 #combo-banner { background:#f5f3ff; border-color:#c4b5fd; }
-    #results-area.combo-1-2 #churn-val, #results-area.combo-1-2 #persona-val, #results-area.combo-1-2 .combo-title { color:#5b21b6; }
-    #results-area.combo-1-2 #churn-badge, #results-area.combo-1-2 .combo-badge { background:#ede9fe; color:#5b21b6; }
+    /* 1,2  At-Risk + Medium  — slate */
+    #results-area.combo-1-2 { background:#f1f5f9; }
+    #results-area.combo-1-2 .result-card, #results-area.combo-1-2 #combo-banner { background:#f1f5f9; border-color:#94a3b8; }
+    #results-area.combo-1-2 #churn-val, #results-area.combo-1-2 #persona-val, #results-area.combo-1-2 .combo-title { color:#334155; }
+    #results-area.combo-1-2 #churn-badge, #results-area.combo-1-2 .combo-badge { background:#e2e8f0; color:#334155; }
 
-    /* 1,3  Explorer + High   — amber */
-    #results-area.combo-1-3 { background:#fffbeb; }
-    #results-area.combo-1-3 .result-card, #results-area.combo-1-3 #combo-banner { background:#fffbeb; border-color:#fcd34d; }
-    #results-area.combo-1-3 #churn-val, #results-area.combo-1-3 #persona-val, #results-area.combo-1-3 .combo-title { color:#b45309; }
-    #results-area.combo-1-3 #churn-badge, #results-area.combo-1-3 .combo-badge { background:#fef3c7; color:#b45309; }
+    /* 1,3  At-Risk + High    — yellow */
+    #results-area.combo-1-3 { background:#fefce8; }
+    #results-area.combo-1-3 .result-card, #results-area.combo-1-3 #combo-banner { background:#fefce8; border-color:#facc15; }
+    #results-area.combo-1-3 #churn-val, #results-area.combo-1-3 #persona-val, #results-area.combo-1-3 .combo-title { color:#854d0e; }
+    #results-area.combo-1-3 #churn-badge, #results-area.combo-1-3 .combo-badge { background:#fef9c3; color:#854d0e; }
 
-    /* 2,0  Hibernating + Critical — crimson/dark red */
-    #results-area.combo-2-0 { background:#fff0f0; }
-    #results-area.combo-2-0 .result-card, #results-area.combo-2-0 #combo-banner { background:#fff0f0; border-color:#ef4444; }
-    #results-area.combo-2-0 #churn-val, #results-area.combo-2-0 #persona-val, #results-area.combo-2-0 .combo-title { color:#7f1d1d; }
-    #results-area.combo-2-0 #churn-badge, #results-area.combo-2-0 .combo-badge { background:#fee2e2; color:#7f1d1d; }
+    /* 2,0  Explorer + Critical — rose */
+    #results-area.combo-2-0 { background:#fff1f6; }
+    #results-area.combo-2-0 .result-card, #results-area.combo-2-0 #combo-banner { background:#fff1f6; border-color:#f9a8d4; }
+    #results-area.combo-2-0 #churn-val, #results-area.combo-2-0 #persona-val, #results-area.combo-2-0 .combo-title { color:#9d174d; }
+    #results-area.combo-2-0 #churn-badge, #results-area.combo-2-0 .combo-badge { background:#fce7f3; color:#9d174d; }
 
-    /* 2,1  Hibernating + Low  — lime green */
-    #results-area.combo-2-1 { background:#f7fee7; }
-    #results-area.combo-2-1 .result-card, #results-area.combo-2-1 #combo-banner { background:#f7fee7; border-color:#a3e635; }
-    #results-area.combo-2-1 #churn-val, #results-area.combo-2-1 #persona-val, #results-area.combo-2-1 .combo-title { color:#3f6212; }
-    #results-area.combo-2-1 #churn-badge, #results-area.combo-2-1 .combo-badge { background:#ecfccb; color:#3f6212; }
+    /* 2,1  Explorer + Low    — sky blue */
+    #results-area.combo-2-1 { background:#f0f9ff; }
+    #results-area.combo-2-1 .result-card, #results-area.combo-2-1 #combo-banner { background:#f0f9ff; border-color:#7dd3fc; }
+    #results-area.combo-2-1 #churn-val, #results-area.combo-2-1 #persona-val, #results-area.combo-2-1 .combo-title { color:#0369a1; }
+    #results-area.combo-2-1 #churn-badge, #results-area.combo-2-1 .combo-badge { background:#e0f2fe; color:#0369a1; }
 
-    /* 2,2  Hibernating + Medium — slate blue */
-    #results-area.combo-2-2 { background:#f1f5f9; }
-    #results-area.combo-2-2 .result-card, #results-area.combo-2-2 #combo-banner { background:#f1f5f9; border-color:#94a3b8; }
-    #results-area.combo-2-2 #churn-val, #results-area.combo-2-2 #persona-val, #results-area.combo-2-2 .combo-title { color:#334155; }
-    #results-area.combo-2-2 #churn-badge, #results-area.combo-2-2 .combo-badge { background:#e2e8f0; color:#334155; }
+    /* 2,2  Explorer + Medium — violet */
+    #results-area.combo-2-2 { background:#f5f3ff; }
+    #results-area.combo-2-2 .result-card, #results-area.combo-2-2 #combo-banner { background:#f5f3ff; border-color:#c4b5fd; }
+    #results-area.combo-2-2 #churn-val, #results-area.combo-2-2 #persona-val, #results-area.combo-2-2 .combo-title { color:#5b21b6; }
+    #results-area.combo-2-2 #churn-badge, #results-area.combo-2-2 .combo-badge { background:#ede9fe; color:#5b21b6; }
 
-    /* 2,3  Hibernating + High  — yellow */
-    #results-area.combo-2-3 { background:#fefce8; }
-    #results-area.combo-2-3 .result-card, #results-area.combo-2-3 #combo-banner { background:#fefce8; border-color:#facc15; }
-    #results-area.combo-2-3 #churn-val, #results-area.combo-2-3 #persona-val, #results-area.combo-2-3 .combo-title { color:#854d0e; }
-    #results-area.combo-2-3 #churn-badge, #results-area.combo-2-3 .combo-badge { background:#fef9c3; color:#854d0e; }
+    /* 2,3  Explorer + High   — amber */
+    #results-area.combo-2-3 { background:#fffbeb; }
+    #results-area.combo-2-3 .result-card, #results-area.combo-2-3 #combo-banner { background:#fffbeb; border-color:#fcd34d; }
+    #results-area.combo-2-3 #churn-val, #results-area.combo-2-3 #persona-val, #results-area.combo-2-3 .combo-title { color:#b45309; }
+    #results-area.combo-2-3 #churn-badge, #results-area.combo-2-3 .combo-badge { background:#fef3c7; color:#b45309; }
+
+    /* 3,0  High-Spender + Critical — deep red */
+    #results-area.combo-3-0 { background:#fdf2f2; }
+    #results-area.combo-3-0 .result-card, #results-area.combo-3-0 #combo-banner { background:#fdf2f2; border-color:#fca5a5; }
+    #results-area.combo-3-0 #churn-val, #results-area.combo-3-0 #persona-val, #results-area.combo-3-0 .combo-title { color:#991b1b; }
+    #results-area.combo-3-0 #churn-badge, #results-area.combo-3-0 .combo-badge { background:#fee2e2; color:#991b1b; }
+
+    /* 3,1  High-Spender + Low — emerald */
+    #results-area.combo-3-1 { background:#f0fdf4; }
+    #results-area.combo-3-1 .result-card, #results-area.combo-3-1 #combo-banner { background:#f0fdf4; border-color:#86efac; }
+    #results-area.combo-3-1 #churn-val, #results-area.combo-3-1 #persona-val, #results-area.combo-3-1 .combo-title { color:#15803d; }
+    #results-area.combo-3-1 #churn-badge, #results-area.combo-3-1 .combo-badge { background:#dcfce7; color:#15803d; }
+
+    /* 3,2  High-Spender + Medium — teal */
+    #results-area.combo-3-2 { background:#f0fdfa; }
+    #results-area.combo-3-2 .result-card, #results-area.combo-3-2 #combo-banner { background:#f0fdfa; border-color:#5eead4; }
+    #results-area.combo-3-2 #churn-val, #results-area.combo-3-2 #persona-val, #results-area.combo-3-2 .combo-title { color:#0f766e; }
+    #results-area.combo-3-2 #churn-badge, #results-area.combo-3-2 .combo-badge { background:#ccfbf1; color:#0f766e; }
+
+    /* 3,3  High-Spender + High — gold */
+    #results-area.combo-3-3 { background:#fefce8; }
+    #results-area.combo-3-3 .result-card, #results-area.combo-3-3 #combo-banner { background:#fefce8; border-color:#f59e0b; }
+    #results-area.combo-3-3 #churn-val, #results-area.combo-3-3 #persona-val, #results-area.combo-3-3 .combo-title { color:#92400e; }
+    #results-area.combo-3-3 #churn-badge, #results-area.combo-3-3 .combo-badge { background:#fef3c7; color:#92400e; }
 
     /* ── FOOTER ── */
     footer {

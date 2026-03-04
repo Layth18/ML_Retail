@@ -19,6 +19,34 @@ def clean_data_with_reports(df, var_threshold=0.95, corr_threshold=0.8, outlier_
     print(f"Initial State: {initial_rows} rows, {initial_cols} columns | Size: {initial_mem:.2f} KB\n")
     print("-" * 50)
 
+    # 0. Remove Impossible Recency/Tenure Values
+    if 'Recency' in df.columns and 'CustomerTenureDays' in df.columns:
+        rows_before = df.shape[0]
+        df = df[(df['Recency'] >= 0) & 
+                (df['CustomerTenureDays'] >= 0) & 
+                (df['Recency'] <= df['CustomerTenureDays'])]
+        removed = rows_before - df.shape[0]
+        print(f"✅ STEP 0: Recency/Tenure Sanity Check")
+        print(f"   Removed: {removed} rows (Recency > Tenure or negative values)")
+        print(f"   Current Size: {get_mem(df):.2f} KB")
+        print("-" * 50)
+    else:
+        print("⚠️ Recency or CustomerTenureDays column not found. Skipping Step 0.")
+        print("-" * 50)
+
+    # 0.5 Remove Negative MonetaryTotal
+    if 'MonetaryTotal' in df.columns:
+        rows_before = df.shape[0]
+        df = df[df['MonetaryTotal'] >= 0]
+        removed = rows_before - df.shape[0]
+        print(f"✅ STEP 0.5: Negative MonetaryTotal Check")
+        print(f"   Removed: {removed} rows with negative MonetaryTotal")
+        print(f"   Current Size: {get_mem(df):.2f} KB")
+        print("-" * 50)
+    else:
+        print("⚠️ Column 'MonetaryTotal' not found. Skipping Step 0.5.")
+        print("-" * 50)
+
     # 1. Remove Duplicate Rows
     rows_before = df.shape[0]
     df = df.drop_duplicates()
@@ -37,7 +65,6 @@ def clean_data_with_reports(df, var_threshold=0.95, corr_threshold=0.8, outlier_
     print("-" * 50)
 
     # 3. Remove High Correlation
-    cols_before = df.shape[1]
     numeric_df = df.select_dtypes(include=[np.number])
     corr_matrix = numeric_df.corr().abs()
     upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
@@ -50,11 +77,9 @@ def clean_data_with_reports(df, var_threshold=0.95, corr_threshold=0.8, outlier_
 
     # 4. Remove Extreme Points (Isolation Forest)
     rows_before = df.shape[0]
-    # Filling NaNs with median just for the outlier detection calculation
     temp_numeric = df.select_dtypes(include=[np.number]).fillna(df.median(numeric_only=True))
     iso = IsolationForest(contamination=outlier_contamination, random_state=42)
     outlier_preds = iso.fit_predict(temp_numeric)
-    
     df = df[outlier_preds == 1]
     removed = rows_before - df.shape[0]
     print(f"✅ STEP 4: Extreme Points (Outliers)")
@@ -76,5 +101,4 @@ def clean_data_with_reports(df, var_threshold=0.95, corr_threshold=0.8, outlier_
 df_cleaned = clean_data_with_reports(df)
 output_path = "data/preparedData/cleaned_data.csv"
 df_cleaned.to_csv(output_path, index=False)
-
 print(f"\n💾 Cleaned data saved to: {output_path}")

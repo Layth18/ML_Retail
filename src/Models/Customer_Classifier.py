@@ -8,7 +8,8 @@ data_path = 'data/TestTrainData/X_Train.csv'
 df_scaled = pd.read_csv(data_path)
 
 # 2. Final KMeans Model
-optimal_k = 3
+optimal_k = 4
+
 model_kmeans = KMeans(
     n_clusters=optimal_k,
     init='k-means++',

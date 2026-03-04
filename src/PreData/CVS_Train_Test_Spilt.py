@@ -8,10 +8,9 @@ import os
 df = pd.read_csv('data/preparedData/prepared_data.csv')
 
 def split_and_save_data(df):
-    # THE ELITE 7
+    # THE ELITE 3
     elite_features = [
-        'Recency', 'Frequency', 'FavoriteSeason', 'CustomerTenureDays',
-        'WeekendPurchaseRatio', 'Region', 'MonetaryTotal'
+        'Recency', 'Frequency', 'CustomerTenureDays',
     ]
     
     # Check for missing columns
